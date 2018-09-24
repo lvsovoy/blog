@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="header">
+    Here goes header
+</div>
+
+<div th:fragment="post">
+
+    <table>
+        <tr th:each="post: ${posts}">
+            <br/>
+            <span th:text="${post.id}">Post Id</span>
+            <br/>
+            <span th:text="${post.date}">Post Timestamp</span>
+            <p th:text="${post.text}">Post contents</p>
+            <hr/>
+        </tr>
+    </table>
+</div>
+
+<div th:fragment="controls">
+    --------------------------
+    controls underneath a post
+</div>
+
+<div th:fragment="footer">
+    Here goes footer
+</div>
+
+</body>
+</html>
