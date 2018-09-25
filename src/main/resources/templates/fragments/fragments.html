@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,7 +19,14 @@
             <br/>
             <span th:text="${post.date}">Post Timestamp</span>
             <p th:text="${post.text}">Post contents</p>
+            <br/>
+            <div sec:authorize="isAuthenticated()">
+                <a>Edit</a>
+                <a>Delete</a>
+            </div>
+
             <hr/>
+
         </tr>
     </table>
 </div>
@@ -31,6 +38,17 @@
 
 <div th:fragment="footer">
     Here goes footer
+</div>
+
+<div th:fragment="new">
+    <table>
+        <tr>adding new post</tr>
+        <textarea rows="4"></textarea>
+        </tr>
+        <tr>
+            <button>Submit</button>
+        </tr>
+    </table>
 </div>
 
 </body>

@@ -1,9 +1,15 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 <head><title>Home Page</title></head>
 <body>
 <h1>Hello !</h1>
 <p>Welcome to <span th:text="${appname}">Our App</span></p>
 
+<div sec:authorize="isAuthenticated()">
+    <form name="logout" th:action="@{/logout}" method="post">
+        <button type="submit" class="btn">Log out</button>
+    </form>
+</div>
+<div sec:authorize="!isAuthenticated()"><a href="/login">Log in</a></div>
 
 <div th:insert="fragments/fragments :: post"> </div>
 </body>
