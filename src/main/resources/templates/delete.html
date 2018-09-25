@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Post</title>
+</head>
+<body>
+<div th:fragment="delete">
+    <form name="delete" th:action="@{'/delete?id=' + ${id}}" method="post">
+        <fieldset>
+            <legend>Deleting Post</legend>
+
+            <!--<div th:if="${param.logout}" class="alert alert-success">-->
+            <!--You have been logged out.-->
+            <!--</div>-->
+            <textarea name="text" rows="4" cols="50" th:text="${text}"></textarea>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Delete</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

@@ -11,6 +11,8 @@
 </div>
 <div sec:authorize="!isAuthenticated()"><a href="/login">Log in</a></div>
 
+<div><a href="/add">Add post</a></div>
+
 <div th:insert="fragments/fragments :: post"> </div>
 </body>
 </html>
