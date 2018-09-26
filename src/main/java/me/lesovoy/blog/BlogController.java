@@ -18,14 +18,19 @@ public class BlogController {
     String appName;
 
     @GetMapping("/")
-    public String homePage(Model model) throws Exception {
+    public String homePage(Model model,@RequestParam(value = "sort", required = false) String sort ) throws Exception {
 
         Connection conn = DriverManager.getConnection("jdbc:h2:~/posts","","");
         List<Post> postList = new LinkedList<>();
         Statement stmt = conn.createStatement();
-
+        ResultSet rs = null;
         //list all
-        ResultSet rs = stmt.executeQuery("SELECT * FROM PUBLIC.POSTS ORDER BY ID DESC");
+
+        if (sort!=null && sort.equals("asc")) {
+            rs = stmt.executeQuery("SELECT * FROM PUBLIC.POSTS ORDER BY ID ASC");
+        } else {
+            rs = stmt.executeQuery("SELECT * FROM PUBLIC.POSTS ORDER BY ID DESC");
+        }
         while(rs.next()){
             postList.add(new Post(rs.getInt("ID"),rs.getTimestamp("DATE"),rs.getString("TEXT")));
         }

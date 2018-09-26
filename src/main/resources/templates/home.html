@@ -12,6 +12,7 @@
 <div sec:authorize="!isAuthenticated()"><a href="/login">Log in</a></div>
 
 <div><a href="/add">Add post</a></div>
+<div>Sort:<a href="/?sort=asc">Ascending</a>|<a href="/?sort=desc">Descending</a></div>
 
 <div th:insert="fragments/fragments :: post"> </div>
 </body>
