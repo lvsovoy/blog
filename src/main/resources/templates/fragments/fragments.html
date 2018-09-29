@@ -1,55 +1,110 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:javascript="http://www.w3.org/1999/xhtml"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
 
 <div th:fragment="header">
-    Here goes header
+
+    <style>
+        nav .nav-wrapper {
+            width: 95%;
+            margin: auto;
+        }
+
+        .dropdown-content {
+            min-width: fit-content;
+        }
+    </style>
+
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="/?sort=asc">Ascending</a></li>
+        <li class="divider"></li>
+        <li><a href="/?sort=desc">Descending</a></li>
+    </ul>
+
+
+    <script>
+        $( document ).ready(function() {
+            $(".dropdown-trigger").dropdown();
+        });
+    </script>
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo left">Blog</a>
+            <ul id="nav-mobile" class="right hide-on-down">
+
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Sort<i class="material-icons right">arrow_drop_down</i></a>
+                </li>
+                <li>
+                    <div sec:authorize="isAuthenticated()">
+                        <!--<form name="logout" th:action="@{/logout}" method="post">-->
+                            <!--<button type="submit" class="btn">Log out</button>-->
+                        <!--</form>-->
+                        <a href="javascript: document.logoutForm.submit()">Log out</a>
+                    </div>
+                    <div sec:authorize="!isAuthenticated()"><a href="/login">Log in</a></div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <a class="btn-floating btn-large waves-effect waves-light red" href="/add" style="position: fixed; bottom: 35px; right: 35px;"><i class="material-icons">add</i></a>
+
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        <input hidden type="submit" value="Sign Out"/>
+    </form>
+
 </div>
 
-<div th:fragment="post">
+<div th:fragment="post" class="container">
 
     <table>
         <tr th:each="post: ${posts}">
-            <br/>
-            <span th:text="${post.id}">Post Id</span>
-            <br/>
-            <span th:text="${post.date}">Post Timestamp</span>
-            <pre th:text="${post.text}">Post contents</pre>
-            <br/>
-            <div sec:authorize="isAuthenticated()">
-                <a th:href="@{'/edit?id=' + ${post.id}}">Edit</a>
-                <a th:href="@{'/delete?id=' + ${post.id}}">Delete</a>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card white darken-1">
+                        <div class="card-content black-text">
+                            <span class="card-title" th:text="${post.id}">Post Id</span>
+                            <pre th:text="${post.text}">Post contents</pre>
+                            <span th:text="${post.date}">Post Timestamp</span>
+                        </div>
+                        <div th:insert="fragments/fragments :: controls"></div>
+                    </div>
+                </div>
             </div>
-
-            <hr/>
-
         </tr>
     </table>
 </div>
 
 <div th:fragment="controls">
-    --------------------------
-    controls underneath a post
+    <div class="card-action" sec:authorize="isAuthenticated()">
+        <a class="waves-effect waves-teal btn-flat" th:href="@{'/edit?id=' + ${post.id}}">Edit</a>
+        <a class="waves-effect waves-teal btn-flat" th:href="@{'/delete?id=' + ${post.id}}">Delete</a>
+    </div>
 </div>
 
 <div th:fragment="footer">
-    Here goes footer
-</div>
-
-<div th:fragment="new">
-    <table>
-        <tr>adding new post</tr>
-        <textarea rows="4"></textarea>
-        </tr>
-        <tr>
-            <button>Submit</button>
-        </tr>
-    </table>
-</div>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                   This is a blog written by Constantine Lesovoy as part of a task given by Accenture Latvia.
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2018 Do whatever you want with it if you must.
+            </div>
+        </div>
+    </footer></div>
 
 </body>
 </html>

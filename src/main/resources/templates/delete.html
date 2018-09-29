@@ -2,23 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Post</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/css/materialize.css" media="screen,projection"/>
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+    </style>
 </head>
 <body>
-<div th:fragment="delete">
-    <form name="delete" th:action="@{'/delete?id=' + ${id}}" method="post">
-        <fieldset>
-            <legend>Deleting Post</legend>
+<div th:insert="fragments/fragments :: header"> </div>
+<main>
+    <div th:fragment="delete" class="container">
+        <form name="delete" th:action="@{'/delete?id=' + ${id}}" method="post">
+            <fieldset>
+                <legend>Deleting Post</legend>
 
-            <!--<div th:if="${param.logout}" class="alert alert-success">-->
-            <!--You have been logged out.-->
-            <!--</div>-->
-            <textarea name="text" rows="4" cols="50" th:text="${text}"></textarea>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea id="icon_prefix2" class="materialize-textarea" name="text" th:text="${text}"></textarea>
+                                <label for="icon_prefix2">Post text</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn">Delete</button>
-            </div>
-        </fieldset>
-    </form>
-</div>
+                <div class="row">
+                    <div class="form-actions">
+                        <button type="submit" class="btn waves-effect waves-light card-action">
+                            Delete
+                            <i class="material-icons left">delete_forever</i>
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</main>
+<div th:insert="fragments/fragments :: footer"> </div>
+<script type="text/javascript" src="/js/materialize.js"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/","/home").permitAll()
+                .antMatchers("/","/home","/css/**","/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails user =
                 User.withDefaultPasswordEncoder() //hardcoded user using deprecated thing
                         .username("user")
-                        .password("password")
+                        .password("admin")
                         .roles("USER")
                         .build();
         return new InMemoryUserDetailsManager(user);
