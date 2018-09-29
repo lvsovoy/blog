@@ -71,9 +71,9 @@
                 <div class="col s12">
                     <div class="card white darken-1">
                         <div class="card-content black-text">
-                            <span class="card-title" th:text="${post.id}">Post Id</span>
+                            <span class="card-title" th:text="${#strings.concat('#',post.id)}">Post Id</span>
                             <pre th:text="${post.text}">Post contents</pre>
-                            <span th:text="${post.date}">Post Timestamp</span>
+                            <span th:text="${#dates.format(post.date, 'dd-MM-yyyy HH:mm')}">Post Timestamp</span>
                         </div>
                         <div th:insert="fragments/fragments :: controls"></div>
                     </div>
